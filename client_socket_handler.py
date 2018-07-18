@@ -1,100 +1,27 @@
 import socket
-import sys
 
-import packet
 from log import log
-
-import pthread
-
-client_name = "CLIENT"
-
-SHOW_SOCKET_COMS = True
+from socket_handler import Handler
 
 
-class Server:
+class Server(Handler):
 
-    def __init__(self, socket=None, server_name=None, host=None, port=None, call_back=None, call_back_args=None):
-        self.isConnected = True;
-        self.socket = socket
-        self.server_name = server_name
-        self.host = host
-        self.port = port
-        self.call_back = call_back
-        self.call_back_args = call_back_args
+    def __init__(self, self_name=None, peer_name=None, conn=None, self_ip=None, self_port=None, peer_ip=None, peer_port=None, call_back=None, call_back_args=None):
+        super().__init__(self_name=self_name, peer_name=peer_name, conn=conn, self_ip=self_ip, self_port=self_port, peer_ip=peer_ip, peer_port=peer_port, call_back=call_back, call_back_args=call_back_args)
 
-    # sends packet to connection
-    def _send_packet(self, packet):
-        self.socket.sendall(packet.export())
+        #TODO remove debug line
+        self.log_coms = False
 
-    # receives a packet from client and adds it to a queue
-    def _receive_packet(self, buffer_length):
-        return packet.Packet(self.socket.recv(buffer_length))
-
-    def _receive_data(self, buffer_length):
-        return self.socket.recv(buffer_length)
-
-    # wrapper for packet sending
-    def send_packet(self, packet):
-        self._send_packet(packet)
-        if SHOW_SOCKET_COMS:
-            log("<%s>" % client_name, packet, '\n')
-
-    # wrapper for packet receiving
-    def receive_packet(self, buffer_length):
-        packet = self._receive_packet(buffer_length)
-        if SHOW_SOCKET_COMS:
-            log("<%s>" % self.server_name, packet, '\n')
-        return packet
-
-    def receive_data(self, buffer_length):
-        return self._receive_data(buffer_length)
-
-    def handle_receiving_data(self, initial_data):
-        data = initial_data.decode('utf8')
-        while len(data) < len(packet.STREAM_TERMINATING_BYTE) or data[-len(packet.STREAM_TERMINATING_BYTE):] != packet.STREAM_TERMINATING_BYTE.decode(
-                'utf8'):
-            data += self.receive_data(1).decode('utf8')
-
-        data = data[:-len(packet.STREAM_TERMINATING_BYTE)]
-        data = packet.Packet(str.encode(data))
-
-        if SHOW_SOCKET_COMS:
-            log("<%s>" % self.server_name, data, '\n')
-
-        return data
-
-    def handle_connection(self):
-        thread = pthread.PThread(self.call_back, (self, *self.call_back_args), is_daemon=False)
-        thread.start()
-        return thread
-
-    def print_connection_info(self):
-        log('connected to:', self.host + ":" + str(self.port))
-
-    def print_disconnection_info(self):
-        log("Connection lost with host:", self.host + ":" + str(self.port))
-
-    def disconnect(self):
-        self.socket.shutdown(socket.SHUT_WR)
-
-
-def init_socket(host, port):
+def init_socket(ip, port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     try:
-        s.connect((host, port))
+        s.connect((ip, port))
     except socket.error:
-        log("Could not connect to", host + ":" + str(port))
-        sys.exit(1)
+        log("Could not connect to", ip + ":" + str(port))
 
     return s
 
 
-def generate_server_handler(socket=None, server_name=None, host=None, port=None, call_back=None, call_back_args=None):
-    return Server(socket=socket, server_name=server_name, host=host, port=port, call_back=call_back, call_back_args=call_back_args)
-
-
-def set_client_name(name):
-    global client_name
-
-    client_name = name
+def generate_handler(self_name=None, peer_name=None, conn=None, self_ip=None, self_port=None, peer_ip=None, peer_port=None, call_back=None, call_back_args=None):
+    return Server(self_name=self_name, peer_name=peer_name, conn=conn, self_ip=self_ip, self_port=self_port, peer_ip=peer_ip, peer_port=peer_port, call_back=call_back, call_back_args=call_back_args)

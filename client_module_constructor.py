@@ -1,5 +1,6 @@
 import json
 import types
+
 import client_module_inspector as mi
 
 FUNC_TYPE = mi.FUNC_TYPE
@@ -42,6 +43,7 @@ def _construct_imports():
 
 def _construct_proxy_ref():
     return "reference = None\n"
+
 
 def _construct_results_queue():
     return "results_queue = Queue()\n"
@@ -90,7 +92,7 @@ def _construct_function(func_name, func_type, func_args, host_cls=''):
             func_args[i] = args[:args.index('=')]
 
     result += "_call_server(%s, %s, %s, %s)" % (
-            ("\"%s\"" % host_cls), str(func_type), ("\"%s\"" % func_name), (", ".join(func_args))) + "\n" + "\t" * (indentation_count + 1)
+        ("\"%s\"" % host_cls), str(func_type), ("\"%s\"" % func_name), (", ".join(func_args))) + "\n" + "\t" * (indentation_count + 1)
     result += "return results_queue.get()"
     return result
 

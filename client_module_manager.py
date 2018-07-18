@@ -1,8 +1,8 @@
 import json
 from queue import Queue
 
-import manager
 import client_module_constructor as mc
+import manager
 import packet
 
 
@@ -24,9 +24,9 @@ class ModuleManager(manager.Manager):
             module_name, module_construct = mc.construct_module(data.get_data())
 
             # File written module
-            #mh.generate_module_file(module_name, module_construct)
-            #self.module = mh.load_module(module_name, self)
-            #log(module_construct)
+            # mh.generate_module_file(module_name, module_construct)
+            # self.module = mh.load_module(module_name, self)
+            # log(module_construct)
             self.module = mc.compile_module(module_name, module_construct, self.srvrhndlr)
         elif packet_id is packet.PACKET_ID_FUNC_CALL:
             pass
