@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../Broker/.idea/Broker.iml" filepath="$PROJECT_DIR$/../Broker/.idea/Broker.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ProxyClient.iml" filepath="$PROJECT_DIR$/.idea/ProxyClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ProxyLib/.idea/ProxyLib.iml" filepath="$PROJECT_DIR$/../ProxyLib/.idea/ProxyLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ProxyServer/.idea/ProxyServer.iml" filepath="$PROJECT_DIR$/../ProxyServer/.idea/ProxyServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/../TestClient/.idea/TestClient.iml" filepath="$PROJECT_DIR$/../TestClient/.idea/TestClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/../TestServer/.idea/TestServer.iml" filepath="$PROJECT_DIR$/../TestServer/.idea/TestServer.iml" />

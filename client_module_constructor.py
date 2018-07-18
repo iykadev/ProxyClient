@@ -37,7 +37,7 @@ def exec_func(module, func_name, *args):
 
 
 def _construct_imports():
-    return "import client_socket_handler as sh\nimport client_packet\nfrom log import log\nfrom queue import Queue\n"
+    return "import client_socket_handler as sh\nimport packet\nfrom log import log\nfrom queue import Queue\n"
 
 
 def _construct_proxy_ref():
@@ -53,7 +53,7 @@ def _construct_proxy_funcs():
     result += "def _call_server(host_cls, func_type, func_name, *func_args):\n%s\n" % \
               '''
     func_call = str(dict(host_cls=host_cls, func_type=func_type, name=func_name, args=func_args)).replace('\\\'', '\\\"').replace('(', '[').replace(')', ']').replace(',]', ']')
-    pk = client_packet.Packet(func_call, client_packet.PACKET_ID_FUNC_CALL)
+    pk = packet.Packet(func_call, packet.PACKET_ID_FUNC_CALL)
     reference.send_packet(pk)
           '''
     return result

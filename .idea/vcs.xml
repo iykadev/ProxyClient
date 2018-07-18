@@ -3,6 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/../Broker" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../ProxyLib" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../ProxyServer" vcs="Git" />
   </component>
 </project>

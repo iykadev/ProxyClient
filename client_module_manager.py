@@ -1,13 +1,12 @@
 import json
 from queue import Queue
 
-import client_manager
-import client_module_handler as mh
-import client_packet
-from log import log
+import manager
+import client_module_constructor as mc
+import packet
 
 
-class ModuleManager(client_manager.Manager):
+class ModuleManager(manager.Manager):
 
     def __init__(self, srvrhndlr):
         self.srvrhndlr = srvrhndlr
@@ -16,25 +15,25 @@ class ModuleManager(client_manager.Manager):
 
     def _request_module_data(self):
         data = json.dumps(dict(data="SEND_FUNCTION_DATA"))
-        pk = client_packet.Packet(data, client_packet.PACKET_ID_FUNC_INIT)
+        pk = packet.Packet(data, packet.PACKET_ID_FUNC_INIT)
         self.srvrhndlr.send_packet(pk)
 
     def handle_request(self, packet_id, data):
 
-        if packet_id is client_packet.PACKET_ID_FUNC_INIT:
-            module_name, module_construct = mh.construct_module(data.get_data())
+        if packet_id is packet.PACKET_ID_FUNC_INIT:
+            module_name, module_construct = mc.construct_module(data.get_data())
 
             # File written module
             #mh.generate_module_file(module_name, module_construct)
             #self.module = mh.load_module(module_name, self)
             #log(module_construct)
-            self.module = mh.compile_module(module_name, module_construct, self.srvrhndlr)
-        elif packet_id is client_packet.PACKET_ID_FUNC_CALL:
+            self.module = mc.compile_module(module_name, module_construct, self.srvrhndlr)
+        elif packet_id is packet.PACKET_ID_FUNC_CALL:
             pass
-        elif packet_id is client_packet.PACKET_ID_FUNC_CALL_RETURN:
+        elif packet_id is packet.PACKET_ID_FUNC_CALL_RETURN:
             data = int(data.get_data())
             self.module.results_queue.put(data)
-        elif packet_id is client_packet.PACKET_ID_FUNC_CALL_ERROR:
+        elif packet_id is packet.PACKET_ID_FUNC_CALL_ERROR:
             pass
 
     def init(self):

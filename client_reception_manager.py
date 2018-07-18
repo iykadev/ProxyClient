@@ -1,12 +1,11 @@
-import client_thread
 import socket
 
-import client_manager
+import manager
 
 from log import log
 
 
-class ReceptionManager(client_manager.Manager):
+class ReceptionManager(manager.Manager):
 
     def __init__(self, srvrhndlr, managers):
         self.srvrhndlr = srvrhndlr
