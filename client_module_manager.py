@@ -27,6 +27,7 @@ class ModuleManager(manager.Manager):
             # mh.generate_module_file(module_name, module_construct)
             # self.module = mh.load_module(module_name, self)
             # log(module_construct)
+
             self.module = mc.compile_module(module_name, module_construct, self.srvrhndlr)
         elif packet_id is packet.PACKET_ID_FUNC_CALL:
             pass
@@ -41,10 +42,6 @@ class ModuleManager(manager.Manager):
 
     def loop(self):
         pass
-        # data = None
-        # start_new_thread(self._handle_request, (self._receive_data(1),))
-        # data = packet.Packet(self.requests_queue.get())
-        # log(data)
 
     def responds_to(self, packet_id):
         return 0 <= packet_id < 100
