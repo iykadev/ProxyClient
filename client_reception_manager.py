@@ -5,6 +5,7 @@ from log import log
 
 
 class ReceptionManager(manager.Manager):
+    __slots__ = ['srvrhndlr', 'managers', 'thread']
 
     def __init__(self, srvrhndlr, managers):
         self.srvrhndlr = srvrhndlr

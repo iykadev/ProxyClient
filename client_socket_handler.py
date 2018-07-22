@@ -20,6 +20,8 @@ def init_socket(ip, port):
     except socket.error:
         log("Could not connect to", ip + ":" + str(port))
 
+    s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+
     return s
 
 

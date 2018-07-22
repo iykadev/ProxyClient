@@ -7,6 +7,7 @@ import packet
 
 
 class ModuleManager(manager.Manager):
+    __slots__ = ['srvrhndlr', 'requests_queue', 'module']
 
     def __init__(self, srvrhndlr):
         self.srvrhndlr = srvrhndlr

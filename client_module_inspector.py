@@ -5,6 +5,7 @@ FUNC_TYPE = Enum("FUNC_TYPE", "MODULE_FUNC INSTANCE_FUNC CLASS_FUNC PROPERTY_FUN
 
 
 class ModuleInfo:
+    __slots__ = ['module', 'cls_names', 'cls_func_names', 'cls_func_args', 'func_names', 'func_args']
 
     def __init__(self, module):
         self.module = module

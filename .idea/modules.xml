@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/../ProxyServer/.idea/ProxyServer.iml" filepath="$PROJECT_DIR$/../ProxyServer/.idea/ProxyServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/../TestClient/.idea/TestClient.iml" filepath="$PROJECT_DIR$/../TestClient/.idea/TestClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/../TestServer/.idea/TestServer.iml" filepath="$PROJECT_DIR$/../TestServer/.idea/TestServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Testing/.idea/Testing.iml" filepath="$PROJECT_DIR$/../Testing/.idea/Testing.iml" />
     </modules>
   </component>
 </project>
